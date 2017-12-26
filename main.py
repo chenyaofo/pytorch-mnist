@@ -1,23 +1,26 @@
 import numpy
+import torch
+import pickle
 from flask import Flask, jsonify, render_template, request
-from PIL import Image
-# webapp
+
 app = Flask(__name__)
 
-def predict_with_pretrain_model(sample):
-	'''
-	Args:
-		sample: A integer ndarray indicating an image, whose shape is (28,28).
+with open("/home/chenyaofo/workspace/mnist-pytorch/LeNet5.model", "rb") as f:
+    net = pickle.load(f)
 
-	Returns:
-		A list consists of 10 double numbers, which denotes the probabilities of numbers(from 0 to 9).
-		like [0.1,0.1,0.2,0.05,0.05,0.1,0.1,0.1,0.1,0.1].
-	'''
-	pass
+
+def predict_with_pretrain_model(sample):
+    sample = torch.from_numpy(sample)
+    sample = (sample - 0.1307) / 0.3081
+    sample = torch.autograd.Variable(sample)
+    scores = net.forward(sample)
+    probilities = torch.nn.functional.softmax(scores)
+    return probilities.data.tolist()[0]
+
 
 @app.route('/api/mnist', methods=['POST'])
 def mnist():
-    input = ((numpy.array(request.json, dtype=numpy.uint8))).reshape(28, 28)
+    input = ((255 - (numpy.array(request.json, dtype=numpy.float32))) / 255).reshape(1, 1, 28, 28)
     output = predict_with_pretrain_model(input)
     return jsonify(results=output)
 
@@ -28,4 +31,5 @@ def main():
 
 
 if __name__ == '__main__':
-    app.run()
+    # please use port larger than 10000
+    app.run(host="127.0.0.1",port=23333)
