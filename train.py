@@ -84,4 +84,4 @@ if __name__ == '__main__':
 
     torch.save(net.cpu(), "LeNet5.pth")
 
-    print("done. please runn 'python main.py' to start web app.")
+    print("done. please run 'python main.py' to start web app.")
