@@ -5,9 +5,7 @@ from flask import Flask, jsonify, render_template, request
 
 app = Flask(__name__)
 
-with open("/home/chenyaofo/workspace/mnist-pytorch/LeNet5.model", "rb") as f:
-    net = pickle.load(f)
-
+net = torch.load("LeNet5.pth", map_location="cpu")
 
 def predict_with_pretrain_model(sample):
     sample = torch.from_numpy(sample)
@@ -32,4 +30,4 @@ def main():
 
 if __name__ == '__main__':
     # please use port larger than 10000
-    app.run(host="127.0.0.1",port=23333)
+    app.run(host="0.0.0.0",port=23333)

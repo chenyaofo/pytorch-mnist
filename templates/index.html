@@ -7,7 +7,7 @@
   </head>
   <body>
     <div class="container">
-      <h1>MNIST(Deep Learning 2017 Experiment)</h1>
+      <h1>Handwritten Digit Recognition Test</h1>
       <div class="row">
         <div class="col-md-6">
           <p>draw a digit here!</p>
@@ -23,8 +23,8 @@
           <p id="output">output:</p>
           <table id="output" class="table">
             <tr>
-              <th class="col-md-1"></th>
-              <th class="col-md-2">AlexNet</th>
+              <th class="col-md-1">Digit</th>
+              <th class="col-md-2">Predict Probility of LeNet5</th>
             </tr>
             <tr>
               <th>0</th>
@@ -169,7 +169,7 @@ class Main {
                 data: JSON.stringify(inputs),
                 success: (data) => {
                     var ajax_time = new Date().getTime()-ajax_start_time;
-                    $("#output").text("output("+ajax_time+"ms)")
+                    $("#output").text("cost time "+ajax_time+"ms")
                     for (let i = 0; i < 1; i++) {
                         var max = 0;
                         var max_index = 0;
