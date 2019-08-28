@@ -1,10 +1,8 @@
-# Deep learning Experiment 
 # Handwritten digit recognition based on shallow neural network
 
-1. The report template is available on content page of experiments.
 
-
-The reference code has been published in this repository.
 
 ## Usage
-firstly run ```python train.py``` to get the pre-trained model, then run ```python main.py``` to start the web application.
+1. run `pip install -r requirement.txt` to install all the requirements.
+2. run `python train.py` to get the pre-trained model `LeNet5.pth`
+3. run `python main.py` to start the web application.
